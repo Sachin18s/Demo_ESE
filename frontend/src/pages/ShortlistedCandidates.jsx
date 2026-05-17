@@ -26,8 +26,8 @@ const ShortlistedCandidates = () => {
       });
       setAiData(res.data.shortlistedCandidates || []);
     } catch (error) {
-      console.error(error);
-      alert('AI evaluation failed. Please check backend and OpenRouter API key.');
+      const errorDetails = error.response?.data?.details?.error?.message || error.response?.data?.message || error.message;
+      alert(`AI evaluation failed: ${errorDetails}`);
     }
     setLoadingAI(false);
   };

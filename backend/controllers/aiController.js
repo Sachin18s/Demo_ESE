@@ -27,7 +27,9 @@ exports.shortlistCandidates = async (req, res) => {
       {
         headers: {
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://github.com/Sachin18s/Demo_ESE', // Required for free models
+          'X-Title': 'AI Candidate Shortlisting System' // Required for free models
         }
       }
     );
@@ -44,7 +46,10 @@ exports.shortlistCandidates = async (req, res) => {
 
     res.json(aiData);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'AI processing failed' });
+    console.error("OpenRouter Error:", error.response?.data || error.message);
+    res.status(500).json({ 
+      message: 'AI processing failed',
+      details: error.response?.data || error.message
+    });
   }
 };
