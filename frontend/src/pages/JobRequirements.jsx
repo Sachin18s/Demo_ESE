@@ -14,7 +14,7 @@ const JobRequirements = () => {
     setLoading(true);
     try {
       const skillsArray = reqSkills.split(',').map(s => s.trim()).filter(s => s);
-      const res = await axios.post('http://localhost:5000/api/candidates/match', {
+      const res = await axios.post('/api/candidates/match', {
         requiredSkills: skillsArray,
         minExperience: Number(minExp)
       });

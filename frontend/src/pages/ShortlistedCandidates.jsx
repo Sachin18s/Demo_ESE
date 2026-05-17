@@ -20,7 +20,7 @@ const ShortlistedCandidates = () => {
     try {
       // Send top 5 candidates to save tokens
       const topCandidates = candidates.slice(0, 5);
-      const res = await axios.post('http://localhost:5000/api/ai/shortlist', {
+      const res = await axios.post('/api/ai/shortlist', {
         candidates: topCandidates,
         jobRequirements: jobReq
       });

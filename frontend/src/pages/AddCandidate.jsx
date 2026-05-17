@@ -22,7 +22,7 @@ const AddCandidate = () => {
     setLoading(true);
     try {
       const skillsArray = formData.skills.split(',').map(s => s.trim()).filter(s => s);
-      await axios.post('http://localhost:5000/api/candidates', {
+      await axios.post('/api/candidates', {
         ...formData,
         skills: skillsArray,
         experience: Number(formData.experience)

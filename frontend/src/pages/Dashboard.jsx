@@ -10,7 +10,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/candidates');
+        const res = await axios.get('/api/candidates');
         setCandidates(res.data);
         
         const experienced = res.data.filter(c => c.experience >= 2).length;
