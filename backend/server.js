@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/candidate-s
 // Serve frontend statically in production
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
 });
 
