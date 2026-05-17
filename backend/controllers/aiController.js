@@ -22,8 +22,7 @@ exports.shortlistCandidates = async (req, res) => {
       'https://openrouter.ai/api/v1/chat/completions',
       {
         model: process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: prompt }],
-        response_format: { type: 'json_object' }
+        messages: [{ role: 'user', content: prompt }]
       },
       {
         headers: {
@@ -35,9 +34,12 @@ exports.shortlistCandidates = async (req, res) => {
 
     let aiData;
     try {
-      aiData = JSON.parse(response.data.choices[0].message.content);
+      let content = response.data.choices[0].message.content;
+      // Strip out markdown formatting if the model wrapped it in ```json
+      content = content.replace(/```json/g, '').replace(/```/g, '').trim();
+      aiData = JSON.parse(content);
     } catch (parseError) {
-      aiData = { error: "Failed to parse AI response", raw: response.data.choices[0].message.content };
+      aiData = { error: "Failed to parse AI response", raw: response.data?.choices?.[0]?.message?.content || "No content" };
     }
 
     res.json(aiData);
